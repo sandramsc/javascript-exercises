@@ -12,7 +12,7 @@
 
 const shopName = "Maison Sarah"; // const because the name of the shop will not change
 const shopLocation = "Downtown"; // const because the location of the shop will not change
-let openingHour = 7; // let because the opening hour may change in the future
+let openHours = 7; // let because the opening hour may change in the future
 let closingHour = 19; // let because the closing hour may change in the future
 const isOpenOnWeekends = true; // const because this is a boolean that will not change
 
@@ -23,7 +23,7 @@ const isOpenOnWeekends = true; // const because this is a boolean that will not 
 
 console.log(typeof shopName); // string
 console.log(typeof shopLocation); // string
-console.log(typeof openingHour); // number
+console.log(typeof openHours); // number
 console.log(typeof closingHour); // number
 console.log(typeof isOpenOnWeekends); // boolean
 console.log(typeof null); // object (this is the famous historical bug)
