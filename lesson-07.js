@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 // Lesson 07 exercise: Objects
 // In your exercise repository, create a branch named `lesson-07-exercise` and switch to it,
@@ -11,34 +11,87 @@
 // bracket notation with the key held in a variable, and note in a comment why the brackets
 // were required in that case.
 
+const menuItem = {
+  name: "Margherita Pizza",
+  price: 8.5,
+  isVegetarian: true,
+  ingredients: ["tomato", "mozzarella", "basil"],
+};
+
+console.log(menuItem.name); // Dot notation
+console.log(menuItem.price); // Dot notation
+
+const propertyKey = "isVegetarian";
+console.log(menuItem[propertyKey]); // Bracket notation required because the key is stored in a variable.
 
 // TODO: Part two.
 // Give the item a `describe` method that returns one sentence built from the object's own
 // properties through `this`, and log the result of calling it.
+const menuItemWithDescribe = {
+  name: "Margherita Pizza",
+  price: 8.5,
+  isVegetarian: true,
+  ingredients: ["tomato", "mozzarella", "basil"],
+  describe: function () {
+    return `The ${this.name} costs €${this.price} and is ${this.isVegetarian ? "vegetarian" : "not vegetarian"}.`;
+  },
+};
 
+console.log(menuItemWithDescribe.describe());
 
 // TODO: Part three.
 // Build an array of at least five menu item objects, and walk it with `for...of`, logging one
 // formatted line per item.
+const menuItems = [
+  { name: "Margherita Pizza", price: 8.5, isVegetarian: true },
+  { name: "Pepperoni Pizza", price: 9.5, isVegetarian: false },
+  { name: "Caesar Salad", price: 7.0, isVegetarian: false },
+  { name: "Veggie Burger", price: 10.0, isVegetarian: true },
+  { name: "Pasta Carbonara", price: 11.0, isVegetarian: false },
+];
 
+for (const item of menuItems) {
+  console.log(
+    `${item.name} - €${item.price} - ${item.isVegetarian ? "Vegetarian" : "Non-Vegetarian"}`,
+  );
+}
 
 // TODO: Part four.
 // Put the callback methods to work on the data: log the names of all vegetarian items by
 // combining `filter` and `map`, and fetch the first item cheaper than three euros with `find`.
 // Add a comment stating what `find` returns when nothing matches.
+const vegetarianItems = menuItems
+  .filter((item) => item.isVegetarian)
+  .map((item) => item.name);
+console.log("Vegetarian items:", vegetarianItems);
 
+const cheapItem = menuItems.find((item) => item.price < 3);
+console.log("First item cheaper than €3:", cheapItem); // If nothing matches, `find` returns undefined.
 
 // TODO: Part five.
 // Take one menu item and log its keys, its values, and finally every pair through a `for...of`
 // loop over its entries with a destructured pair, formatted as the key, a colon in the output
 // text, and the value.
+const firstMenuItem = menuItems[0];
+console.log("Keys:", Object.keys(firstMenuItem));
+console.log("Values:", Object.values(firstMenuItem));
 
+for (const [key, value] of Object.entries(firstMenuItem)) {
+  console.log(`${key}: ${value}`);
+}
 
 // TODO: Part six.
 // Assign one item to a second variable, change the price through the second name, and log the
 // first to demonstrate the shared reference. Then build a spread copy that overrides only the
 // price, and log both objects to prove they now differ in exactly that property.
+const originalItem = menuItems[0];
+const referenceItem = originalItem;
+referenceItem.price = 9.0;
+console.log("Original item after changing reference:", originalItem); // Shows updated price due to shared reference
 
+const copiedItem = { ...originalItem, price: 10.0 };
+console.log("Original item:", originalItem);
+console.log("Copied item with overridden price:", copiedItem);
 
 // TODO: Part seven.
 // As a stretch, build the classic word frequency counter: split the provided sentence into
@@ -47,8 +100,23 @@
 // caught your interest, log its entries ordered so that the most frequent word comes first.
 
 // * The provided sentence for the word frequency counter:
-const sentence = "the quick brown fox jumps over the lazy dog the fox sleeps and the dog dreams";
+const sentence =
+  "the quick brown fox jumps over the lazy dog the fox sleeps and the dog dreams";
 
+const wordFrequencyCounter = {};
+const words = sentence.split(" ");
+
+for (const word of words) {
+  wordFrequencyCounter[word] = (wordFrequencyCounter[word] || 0) + 1;
+}
+
+console.log("Word frequency counter:", wordFrequencyCounter);
+
+// Optional: Sort the entries by frequency in descending order
+const sortedEntries = Object.entries(wordFrequencyCounter).sort(
+  (a, b) => b[1] - a[1],
+);
+console.log("Sorted word frequency entries:", sortedEntries);
 
 // TODO: Save deliberately, commit with a clear message, push the branch, and open a pull request
 // into main.
